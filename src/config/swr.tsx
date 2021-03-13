@@ -1,6 +1,6 @@
 import { SWRConfig } from "swr";
 
-const fetcher = (resource: RequestInfo, init: RequestInit) =>
+const fetcher = (resource: RequestInfo, init?: RequestInit) =>
   fetch(resource, init).then((res) => res.json());
 
 export const SWRProvider: React.FC = ({ children }) => (
@@ -13,3 +13,6 @@ export const SWRProvider: React.FC = ({ children }) => (
     {children}
   </SWRConfig>
 );
+
+export const multiFetcher = (resources: RequestInfo[]) =>
+  Promise.all(resources.map((resource) => fetcher(resource)));

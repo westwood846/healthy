@@ -7,17 +7,20 @@ import { SWRProvider } from "./config/swr";
 import { BrowserRouter as Router } from "react-router-dom";
 import { StarredProvider } from "./contexts/starred";
 import { MealsProvider } from "./contexts/meals";
+import { FdcApiKeyProvider } from "./contexts/fdcApiKey";
 
 ReactDOM.render(
   <React.StrictMode>
     <SWRProvider>
-      <StarredProvider>
-        <MealsProvider>
-          <Router>
-            <App />
-          </Router>
-        </MealsProvider>
-      </StarredProvider>
+      <FdcApiKeyProvider>
+        <StarredProvider>
+          <MealsProvider>
+            <Router>
+              <App />
+            </Router>
+          </MealsProvider>
+        </StarredProvider>
+      </FdcApiKeyProvider>
     </SWRProvider>
   </React.StrictMode>,
   document.getElementById("root")

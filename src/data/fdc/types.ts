@@ -17,21 +17,28 @@ export interface FoodSearchCriteria {
   requireAllWords: boolean;
 }
 
+export enum DataType {
+  BRANDED = "Branded",
+  SURVEY = "Survey (FNDDS)",
+  LEGACY = "SR Legacy",
+  FOUNDATION = "Foundation",
+}
+
 export interface SearchFood {
   fdcId: number;
   description: string;
   lowercaseDescription: string;
-  dataType: string;
+  dataType: DataType;
   gtinUpc: string;
   publishedDate: string;
   brandOwner: string;
   ingredients: string;
   allHighlightFields: string;
   score: number;
-  foodNutrients: Nutrient[];
+  foodNutrients: SearchNutrient[];
 }
 
-export interface Nutrient {
+export interface SearchNutrient {
   nutrientId: number;
   nutrientName: string;
   nutrientNumber: string;
@@ -43,10 +50,7 @@ export interface Nutrient {
 
 export interface Aggregations {
   dataType: {
-    Branded: number;
-    "Survey (FNDDS)": number;
-    "SR Legacy": number;
-    Foundation: number;
+    [dataType in DataType]: number;
   };
   nutrients: {};
 }
@@ -104,7 +108,7 @@ export interface FoodResult {
   description: string;
   publicationDate: string;
   foodNutrients: FoodNutrient[];
-  dataType: string;
+  dataType: DataType;
   foodClass: string;
   modifiedDate: string;
   availableDate: string;
